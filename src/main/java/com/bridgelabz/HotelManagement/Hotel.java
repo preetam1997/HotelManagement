@@ -87,5 +87,22 @@ public class Hotel {
 	public void setTotalRates(Double totalRates) {
 		this.totalRates = totalRates;
 	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(Name, Rating, date, Customer, Weekend_Rates, Rates);
+
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) {
+			return true;
+		}
+		if (!(obj instanceof Hotel)) {
+			return false;
+		}
+		Hotel c = (Hotel) obj;
+		return Name.equals(c.Name);
+	}
 
 }

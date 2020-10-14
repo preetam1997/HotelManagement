@@ -10,7 +10,6 @@ import java.util.Set;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-
 public class HotelManagement {
 
 	public List<Hotel> Hotels;
@@ -149,14 +148,13 @@ public class HotelManagement {
 		return minEntries;
 
 	}
-	
-	public List<Hotel> CheapestandHighestRatedHotelBasedOnWeekDaysandWeekends_UC6(HotelManagement hm) throws Exception {
+
+	public List<Hotel> CheapestandHighestRatedHotelUC6(HotelManagement hm) throws Exception {
 		List<Entry<String, Double>> cheapestHotelEntries = CheapestHotelUC4(hm);
 
-		Set<Hotel> cheapestHotelWithBestRating = Hotels.stream().filter(
+		List<Hotel> cheapestHotelWithBestRating = Hotels.stream().filter(
 				hotel -> cheapestHotelEntries.stream().anyMatch(entry -> entry.getKey().matches(hotel.getName())))
-				.collect(Collectors.toSet());
-		System.out.println(cheapestHotelWithBestRating.size());
+				.collect(Collectors.toList());
 
 		double maxRating = Double.MIN_VALUE;
 
@@ -172,9 +170,14 @@ public class HotelManagement {
 				}
 			}
 		}
-
-		removeDuplicates(cheapestHotelWithMaxRating);
-		System.out.println("3rd_func" + nameToRateRegular.get("Moody Moon"));
+		
+		Map<String,Hotel> unique = new HashMap<>();
+		for(Hotel hotel: cheapestHotelWithMaxRating) {
+			unique.put(hotel.getName(), hotel);
+		}
+		
+		cheapestHotelWithMaxRating.clear();
+		cheapestHotelWithMaxRating.addAll(unique.values());
 		return cheapestHotelWithMaxRating;
 
 	}
