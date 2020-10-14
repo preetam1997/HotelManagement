@@ -91,7 +91,7 @@ public class HotelManagementUC1andUC2Test {
 		hm.addDate(DateClass.StringToDate("9Sep2018"));
 		hm.addDate(DateClass.StringToDate("8Sep2018"));
 		hm.qualifiedHotelList(hm);
-		hm.NametoTotalRateMapping(hm);
+		hm.NametoTotalRateMappingUC2(hm);
 		String output = hm.CheapestHotelUC2(hm);
 		boolean result ="Radisson, Four Seasons, with total rates ₹450.0".matches(output);
 		assertTrue(result);

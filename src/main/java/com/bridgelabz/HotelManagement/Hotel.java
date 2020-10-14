@@ -30,6 +30,15 @@ public class Hotel {
 		this.date = date;
 		this.Weekend_Rates = Weekend_Rates;
 	}
+	
+	public Hotel(String Name, double Rates, double Weekend_Rates, Date date,double Rating) {
+
+		this.Name = Name;
+		this.Rates = Rates;
+		this.date = date;
+		this.Weekend_Rates = Weekend_Rates;
+		this.Rating = Rating;
+	}
 
 	public double getRates() {
 		return Rates;

@@ -16,10 +16,10 @@ public class HotelManagementUC3andUC4Test {
 		Hotel hotel1_1 = new Hotel("Moody Moon", 250, 210, DateClass.StringToDate("9Sep2018"));
 		Hotel hotel1_2 = new Hotel("Moody Moon", 250, 210, DateClass.StringToDate("10Sep2018"));
 		Hotel hotel1_3 = new Hotel("Moody Moon", 250, 210, DateClass.StringToDate("11Sep2018"));
-		Hotel hotel2 = new Hotel("Mandarin Oriental", 200, 100, DateClass.StringToDate("8Sep2018"));
-		Hotel hotel2_1 = new Hotel("Mandarin Oriental", 200, 100, DateClass.StringToDate("9Sep2018"));
-		Hotel hotel2_2 = new Hotel("Mandarin Oriental", 200, 100, DateClass.StringToDate("10Sep2018"));
-		Hotel hotel2_3 = new Hotel("Mandarin Oriental", 200, 100, DateClass.StringToDate("11Sep2018"));
+		Hotel hotel2 = new Hotel("Mandarin Oriental", 150, 50, DateClass.StringToDate("8Sep2018"));
+		Hotel hotel2_1 = new Hotel("Mandarin Oriental", 150, 50, DateClass.StringToDate("9Sep2018"));
+		Hotel hotel2_2 = new Hotel("Mandarin Oriental", 150, 50, DateClass.StringToDate("10Sep2018"));
+		Hotel hotel2_3 = new Hotel("Mandarin Oriental", 150, 50, DateClass.StringToDate("11Sep2018"));
 		Hotel hotel3 = new Hotel("Four Seasons", 150, 140, DateClass.StringToDate("8Sep2018"));
 		Hotel hotel3_1 = new Hotel("Four Seasons", 150, 140, DateClass.StringToDate("9Sep2018"));
 		Hotel hotel3_2 = new Hotel("Four Seasons", 150, 140, DateClass.StringToDate("10Sep2018"));
@@ -74,6 +74,18 @@ public class HotelManagementUC3andUC4Test {
 	@Test
 	public void givenAbilityToAddWeekendRatesOfHotelShouldPassHotelManangementTest() {
 		boolean result = hm.Hotels.get(0).getWeekendRates() == 210.0;
+		assertTrue(result);
+	}
+
+	@Test
+	public void givenAbilityToGiveCheapestHotelHotelManangementTest() throws Exception {
+		hm.addDate(DateClass.StringToDate("10Sep2018"));
+		hm.addDate(DateClass.StringToDate("9Sep2018"));
+		hm.addDate(DateClass.StringToDate("8Sep2018"));
+		hm.qualifiedHotelList(hm);
+		hm.NametoTotalRateMappingUC4(hm);
+		String output = hm.CheapestHotelUC4(hm);
+		boolean result = "Mandarin Oriental, Radisson, with total rates ₹250.0".matches(output);
 		assertTrue(result);
 	}
 }

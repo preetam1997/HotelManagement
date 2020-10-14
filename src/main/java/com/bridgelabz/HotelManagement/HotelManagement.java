@@ -65,7 +65,7 @@ public class HotelManagement {
 				.collect(Collectors.toList());
 	}
 
-	public List<Hotel> NametoTotalRateMapping(HotelManagement hm) throws Exception {
+	public List<Hotel> NametoTotalRateMappingUC2(HotelManagement hm) throws Exception {
 
 		for (Hotel hotel : qualifiedHotels) {
 			if (nameToRateRegular.get(hotel.getName()) != null) {
@@ -79,12 +79,11 @@ public class HotelManagement {
 			}
 
 		}
-		
+
 		return null;
 	}
 
-	public String CheapestHotelUC2(HotelManagement hm)
-			throws Exception {
+	public String CheapestHotelUC2(HotelManagement hm) throws Exception {
 
 		List<Entry<String, Double>> minEntries = new LinkedList<Entry<String, Double>>();
 
@@ -96,13 +95,63 @@ public class HotelManagement {
 		minEntries = nameToRateRegular.entrySet().stream().filter(entry -> entry.getValue() == minArr[0])
 				.collect(Collectors.toList());
 
-		
 		String output = "";
-		for(Entry entry:minEntries) {
-			output = output+entry.getKey()+", ";
+		for (Entry entry : minEntries) {
+			output = output + entry.getKey() + ", ";
 		}
-		output = output+"with total rates ₹"+ minEntries.get(0).getValue();
+		output = output + "with total rates ₹" + minEntries.get(0).getValue();
 		return output;
+	}
+
+	public List<Hotel> NametoTotalRateMappingUC4(HotelManagement hm) throws Exception {
+
+		for (Hotel hotel : qualifiedHotels) {
+			if (nameToRateRegular.get(hotel.getName()) != null) {
+
+				if (Days.get(DateClass.Day(hotel.getDate())) == "Weekend") {
+					double totalRates = nameToRateRegular.get(hotel.getName()) + hotel.getWeekendRates();
+					nameToRateRegular.put(hotel.getName(), totalRates);
+				} else {
+					double totalRates = nameToRateRegular.get(hotel.getName()) + hotel.getRates();
+					nameToRateRegular.put(hotel.getName(), totalRates);
+
+				}
+			} else {
+
+				if (Days.get(DateClass.Day(hotel.getDate())) == "Weekend") {
+					nameToRateRegular.put(hotel.getName(), hotel.getWeekendRates());
+				} else {
+					nameToRateRegular.put(hotel.getName(), hotel.getRates());
+
+				}
+
+			}
+		}
+
+		return null;
+
+	}
+
+	public String CheapestHotelUC4(HotelManagement hm) throws Exception {
+
+		List<Entry<String, Double>> minEntries = new LinkedList<Entry<String, Double>>();
+
+		double min = Double.MAX_VALUE;
+
+		min = nameToRateRegular.entrySet().stream().min(Comparator.comparingDouble(Map.Entry::getValue)).get()
+				.getValue();
+		double[] minArr = { min };
+
+		minEntries = nameToRateRegular.entrySet().stream().filter(entry -> entry.getValue() == minArr[0])
+				.collect(Collectors.toList());
+
+		String output = "";
+		for (Entry entry : minEntries) {
+			output = output + entry.getKey() + ", ";
+		}
+		output = output + "with total rates ₹" + minEntries.get(0).getValue();
+		return output;
+
 	}
 
 }
