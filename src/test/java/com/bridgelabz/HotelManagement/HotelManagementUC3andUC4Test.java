@@ -2,6 +2,9 @@ package com.bridgelabz.HotelManagement;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+import java.util.Map.Entry;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -84,7 +87,12 @@ public class HotelManagementUC3andUC4Test {
 		hm.addDate(DateClass.StringToDate("8Sep2018"));
 		hm.qualifiedHotelList(hm);
 		hm.NametoTotalRateMappingUC4(hm);
-		String output = hm.CheapestHotelUC4(hm);
+		List<Entry<String, Double>> entries = hm.CheapestHotelUC4(hm);
+		String output = "";
+		for (Entry entry : entries) {
+			output = output + entry.getKey() + ", ";
+		}
+		output = output + "with total rates ₹" + entries.get(0).getValue();
 		boolean result = "Mandarin Oriental, Radisson, with total rates ₹250.0".matches(output);
 		assertTrue(result);
 	}

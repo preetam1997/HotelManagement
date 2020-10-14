@@ -55,6 +55,14 @@ public class Hotel {
 	public void setWeekendRates(double Weekend_Rates) {
 		this.Weekend_Rates = Weekend_Rates;
 	}
+	
+	public double getRating() {
+		return Rating;
+	}
+
+	public void setRating(double Rates) {
+		this.Rating = Rating;
+	}
 
 	public String getName() {
 		return Name;

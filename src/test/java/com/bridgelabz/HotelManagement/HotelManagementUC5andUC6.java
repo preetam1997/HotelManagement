@@ -1,6 +1,9 @@
 package com.bridgelabz.HotelManagement;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
+import org.junit.Test;
 
 public class HotelManagementUC5andUC6 {
 
@@ -26,10 +29,10 @@ public class HotelManagementUC5andUC6 {
 		Hotel hotel4_1 = new Hotel("Knights Inn", 250, 120, DateClass.StringToDate("9Sep2018"), 3.5);
 		Hotel hotel4_2 = new Hotel("Knights Inn", 250, 120, DateClass.StringToDate("10Sep2018"), 3.5);
 		Hotel hotel4_3 = new Hotel("Knights Inn", 250, 120, DateClass.StringToDate("11Sep2018"), 3.5);
-		Hotel hotel5 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("8Sep2018"), 4.9);
-		Hotel hotel5_1 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("9Sep2018"), 4.9);
-		Hotel hotel5_2 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("10Sep2018"), 4.9);
-		Hotel hotel5_3 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("11Sep2018"), 4.9);
+		Hotel hotel5 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("8Sep2018"), 4.3);
+		Hotel hotel5_1 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("9Sep2018"), 4.3);
+		Hotel hotel5_2 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("10Sep2018"), 4.3);
+		Hotel hotel5_3 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("11Sep2018"), 4.3);
 		Hotel hotel6 = new Hotel("Classico", 240, 120, DateClass.StringToDate("8sep2018"), 4.7);
 		Hotel hotel6_1 = new Hotel("Classico", 240, 120, DateClass.StringToDate("9Sep2018"), 4.7);
 		Hotel hotel6_2 = new Hotel("Classico", 240, 120, DateClass.StringToDate("10Sep2018"), 4.7);
@@ -67,6 +70,24 @@ public class HotelManagementUC5andUC6 {
 		hm.Hotels.add(hotel7_1);
 		hm.Hotels.add(hotel7_2);
 		hm.Hotels.add(hotel7_3);
+	}
+	
+	@Test
+	public void givenAbilityToAddWeekendRatesOfHotelShouldPassHotelManangementTest() {
+		boolean result = hm.Hotels.get(0).getRating() == 5;
+		assertTrue(result);
+	}
+	
+	@Test
+	public void givenAbilityToGiveCheapestHotelShouldPasstheHotelManangementTest() throws Exception {
+		hm.addDate(DateClass.StringToDate("10Sep2018"));
+		hm.addDate(DateClass.StringToDate("9Sep2018"));
+		hm.addDate(DateClass.StringToDate("8Sep2018"));
+		hm.qualifiedHotelList(hm);
+		hm.NametoTotalRateMappingUC4(hm);
+		
+		boolean result = false;
+		assertTrue(result);
 	}
 
 }

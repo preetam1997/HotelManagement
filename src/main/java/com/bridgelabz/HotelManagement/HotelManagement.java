@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+
 public class HotelManagement {
 
 	public List<Hotel> Hotels;
@@ -132,7 +133,7 @@ public class HotelManagement {
 
 	}
 
-	public String CheapestHotelUC4(HotelManagement hm) throws Exception {
+	public List<Entry<String, Double>> CheapestHotelUC4(HotelManagement hm) throws Exception {
 
 		List<Entry<String, Double>> minEntries = new LinkedList<Entry<String, Double>>();
 
@@ -145,12 +146,36 @@ public class HotelManagement {
 		minEntries = nameToRateRegular.entrySet().stream().filter(entry -> entry.getValue() == minArr[0])
 				.collect(Collectors.toList());
 
-		String output = "";
-		for (Entry entry : minEntries) {
-			output = output + entry.getKey() + ", ";
+		return minEntries;
+
+	}
+	
+	public List<Hotel> CheapestandHighestRatedHotelBasedOnWeekDaysandWeekends_UC6(HotelManagement hm) throws Exception {
+		List<Entry<String, Double>> cheapestHotelEntries = CheapestHotelUC4(hm);
+
+		Set<Hotel> cheapestHotelWithBestRating = Hotels.stream().filter(
+				hotel -> cheapestHotelEntries.stream().anyMatch(entry -> entry.getKey().matches(hotel.getName())))
+				.collect(Collectors.toSet());
+		System.out.println(cheapestHotelWithBestRating.size());
+
+		double maxRating = Double.MIN_VALUE;
+
+		maxRating = cheapestHotelWithBestRating.stream().max(Comparator.comparing(Hotel::getRating)).get().getRating();
+		double[] maxArr = { maxRating };
+		List<Hotel> cheapestHotelWithMaxRating = cheapestHotelWithBestRating.stream()
+				.filter(hotel -> hotel.getRating() == maxArr[0]).collect(Collectors.toList());
+
+		for (int entry = 0; entry < cheapestHotelEntries.size(); entry++) {
+			for (int hotel = 0; hotel < cheapestHotelWithMaxRating.size(); hotel++) {
+				if (cheapestHotelEntries.get(entry).getKey().matches(cheapestHotelWithMaxRating.get(hotel).getName())) {
+					cheapestHotelWithMaxRating.get(hotel).setTotalRates(cheapestHotelEntries.get(entry).getValue());
+				}
+			}
 		}
-		output = output + "with total rates ₹" + minEntries.get(0).getValue();
-		return output;
+
+		removeDuplicates(cheapestHotelWithMaxRating);
+		System.out.println("3rd_func" + nameToRateRegular.get("Moody Moon"));
+		return cheapestHotelWithMaxRating;
 
 	}
 
