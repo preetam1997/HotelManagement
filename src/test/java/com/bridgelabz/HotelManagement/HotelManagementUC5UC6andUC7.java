@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class HotelManagementUC5andUC6 {
+public class HotelManagementUC5UC6andUC7 {
 
 	HotelManagement hm;
 
@@ -80,7 +80,7 @@ public class HotelManagementUC5andUC6 {
 	}
 
 	@Test
-	public void givenAbilityToGiveCheapestHotelShouldPasstheHotelManangementTest() throws Exception {
+	public void givenAbilityToGiveCheapestandbestRatedHotelShouldPasstheHotelManangementTest() throws Exception {
 		hm.addDate(DateClass.StringToDate("10Sep2018"));
 		hm.addDate(DateClass.StringToDate("9Sep2018"));
 		hm.addDate(DateClass.StringToDate("8Sep2018"));
@@ -94,6 +94,23 @@ public class HotelManagementUC5andUC6 {
 		output = output + "with total rates ₹" + hotels.get(0).getTotalRates();
 		boolean result = "Mandarin Oriental, Radisson, with total rates ₹250.0".matches(output);
 		assertTrue(result);
+	}
+	
+	@Test
+	public void givenAbilityToGiveBestRatedHotelShouldPasstheHotelManangementTest() throws Exception {
+		hm.addDate(DateClass.StringToDate("10Sep2018"));
+		hm.addDate(DateClass.StringToDate("9Sep2018"));
+		hm.addDate(DateClass.StringToDate("8Sep2018"));
+		hm.qualifiedHotelList(hm);
+		
+		List<Hotel> hotels = hm.hotelWithMaxRating(hm);
+		String output = "";
+		for (Hotel hotel : hotels) {
+			output = output + hotel.getName() + ", ";
+		}
+		output = output + "with rating of " + hotels.get(0).getRating();
+		
+		System.out.println(output);
 	}
 
 }

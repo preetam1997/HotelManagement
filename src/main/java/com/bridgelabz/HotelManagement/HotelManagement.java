@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+
 public class HotelManagement {
 
 	public List<Hotel> Hotels;
@@ -36,28 +37,14 @@ public class HotelManagement {
 		Days.put("Saturday", "Weekend");
 	}
 
-	public String getDays(String Day) {
-		return Days.get(Day);
-	}
+	
 
-	public void addHotel1(String Name, double Rates, Date date) {
-		Hotel hotel = new Hotel(Name, Rates, date);
-		Hotels.add(hotel);
-	}
-
+	
 	public void addDate(Date date) {
 		DateList.add(date);
 	}
 
-	public void removeDuplicates(List<Hotel> list) {
-		for (int i = 0; i < list.size(); i++) {
-			for (int j = i + 1; j < list.size(); j++) {
-				if (list.get(i).equals(list.get(j))) {
-					list.remove(j);
-				}
-			}
-		}
-	}
+	
 
 	public void qualifiedHotelList(HotelManagement hm) {
 		qualifiedHotels = hm.Hotels.stream()
@@ -180,6 +167,26 @@ public class HotelManagement {
 		cheapestHotelWithMaxRating.addAll(unique.values());
 		return cheapestHotelWithMaxRating;
 
+	}
+	
+	public List<Hotel> hotelWithMaxRating(HotelManagement hm) throws Exception {
+
+		double maxRating = Double.MIN_VALUE;
+
+		maxRating = qualifiedHotels.stream().max(Comparator.comparing(Hotel::getRating)).get().getRating();
+		System.out.println(maxRating);
+		double[] maxArr = { maxRating };
+		List<Hotel> hotelsWithMaxRating = qualifiedHotels.stream().filter(hotel -> hotel.getRating() == maxArr[0])
+				.collect(Collectors.toList());
+		Map<String,Hotel> unique = new HashMap<>();
+		for(Hotel hotel: hotelsWithMaxRating) {
+			unique.put(hotel.getName(), hotel);
+		}
+		
+		hotelsWithMaxRating.clear();
+		hotelsWithMaxRating.addAll(unique.values());
+		
+		return hotelsWithMaxRating;
 	}
 
 }
