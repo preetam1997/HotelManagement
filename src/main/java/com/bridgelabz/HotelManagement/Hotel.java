@@ -25,12 +25,12 @@ public class Hotel {
 
 	
 
-	public double getRewardRates() {
-		return rewardRates;
+	public double getRates() {
+		return Rates;
 	}
 
-	public void setRewardRates(double rewardRates) {
-		this.rewardRates = rewardRates;
+	public void setRates(double rewardRates) {
+		this.Rates = Rates;
 	}
 
 	public String getName() {
