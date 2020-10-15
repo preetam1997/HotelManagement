@@ -103,7 +103,7 @@ public class HotelManagementUC5UC6andUC7 {
 		hm.addDate(DateClass.StringToDate("8Sep2018"));
 		hm.qualifiedHotelList(hm);
 		
-		List<Hotel> hotels = hm.hotelWithMaxRating(hm);
+		List<Hotel> hotels = hm.hotelWithMaxRatingUC7(hm);
 		String output = "";
 		for (Hotel hotel : hotels) {
 			output = output + hotel.getName() + ", ";

@@ -39,6 +39,17 @@ public class Hotel {
 		this.Weekend_Rates = Weekend_Rates;
 		this.Rating = Rating;
 	}
+	
+	public Hotel(String Name, double Rates, double Weekend_Rates, Date date,double Rating,double rewardRates,double rewardWeekend_Rates) {
+
+		this.Name = Name;
+		this.Rates = Rates;
+		this.date = date;
+		this.Weekend_Rates = Weekend_Rates;
+		this.Rating = Rating;
+		this.rewardRates = rewardRates;
+		this.rewardWeekend_Rates = rewardWeekend_Rates;
+	}
 
 	public double getRates() {
 		return Rates;
@@ -56,11 +67,27 @@ public class Hotel {
 		this.Weekend_Rates = Weekend_Rates;
 	}
 	
+	public double getRewardWeekendRates() {
+		return rewardWeekend_Rates;
+	}
+
+	public void setRewardWeekendRates(double rewardWeekend_Rates) {
+		this.rewardWeekend_Rates = rewardWeekend_Rates;
+	}
+	
+	public double getRewardRates() {
+		return rewardRates;
+	}
+
+	public void setRewardRates(double rewardRates) {
+		this.rewardRates = rewardRates;
+	}
+	
 	public double getRating() {
 		return Rating;
 	}
 
-	public void setRating(double Rates) {
+	public void setRating( double Rating) {
 		this.Rating = Rating;
 	}
 

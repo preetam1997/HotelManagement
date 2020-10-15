@@ -10,7 +10,6 @@ import java.util.Set;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-
 public class HotelManagement {
 
 	public List<Hotel> Hotels;
@@ -21,6 +20,7 @@ public class HotelManagement {
 	public static List<Hotel> qualifiedHotels;
 	public List<Date> DateList;
 
+	// constructor
 	public HotelManagement() {
 		Hotels = new LinkedList<Hotel>();
 		DateList = new LinkedList<>();
@@ -37,22 +37,20 @@ public class HotelManagement {
 		Days.put("Saturday", "Weekend");
 	}
 
-	
-
-	
+	// method to add date to DateList
 	public void addDate(Date date) {
 		DateList.add(date);
 	}
 
-	
-
+	// method to get all hotels available for the given dates in a list
 	public void qualifiedHotelList(HotelManagement hm) {
 		qualifiedHotels = hm.Hotels.stream()
 				.filter(hotel -> DateList.stream().anyMatch(date -> hotel.getDate().compareTo(date) == 0))
 				.collect(Collectors.toList());
 	}
 
-	public List<Hotel> NametoTotalRateMappingUC2(HotelManagement hm) throws Exception {
+	// method to get the mapping of Hotels to Total rates based on Weekdays Only
+	public void NametoTotalRateMappingUC2(HotelManagement hm) throws Exception {
 
 		for (Hotel hotel : qualifiedHotels) {
 			if (nameToRateRegular.get(hotel.getName()) != null) {
@@ -64,12 +62,10 @@ public class HotelManagement {
 
 				nameToRateRegular.put(hotel.getName(), hotel.getRates());
 			}
-
 		}
-
-		return null;
 	}
-
+	
+	// method to get the cheapest Hotel based on weekdays
 	public String CheapestHotelUC2(HotelManagement hm) throws Exception {
 
 		List<Entry<String, Double>> minEntries = new LinkedList<Entry<String, Double>>();
@@ -90,6 +86,7 @@ public class HotelManagement {
 		return output;
 	}
 
+	
 	public List<Hotel> NametoTotalRateMappingUC4(HotelManagement hm) throws Exception {
 
 		for (Hotel hotel : qualifiedHotels) {
@@ -157,19 +154,19 @@ public class HotelManagement {
 				}
 			}
 		}
-		
-		Map<String,Hotel> unique = new HashMap<>();
-		for(Hotel hotel: cheapestHotelWithMaxRating) {
+
+		Map<String, Hotel> unique = new HashMap<>();
+		for (Hotel hotel : cheapestHotelWithMaxRating) {
 			unique.put(hotel.getName(), hotel);
 		}
-		
+
 		cheapestHotelWithMaxRating.clear();
 		cheapestHotelWithMaxRating.addAll(unique.values());
 		return cheapestHotelWithMaxRating;
 
 	}
-	
-	public List<Hotel> hotelWithMaxRating(HotelManagement hm) throws Exception {
+
+	public List<Hotel> hotelWithMaxRatingUC7(HotelManagement hm) throws Exception {
 
 		double maxRating = Double.MIN_VALUE;
 
@@ -178,14 +175,14 @@ public class HotelManagement {
 		double[] maxArr = { maxRating };
 		List<Hotel> hotelsWithMaxRating = qualifiedHotels.stream().filter(hotel -> hotel.getRating() == maxArr[0])
 				.collect(Collectors.toList());
-		Map<String,Hotel> unique = new HashMap<>();
-		for(Hotel hotel: hotelsWithMaxRating) {
+		Map<String, Hotel> unique = new HashMap<>();
+		for (Hotel hotel : hotelsWithMaxRating) {
 			unique.put(hotel.getName(), hotel);
 		}
-		
+
 		hotelsWithMaxRating.clear();
 		hotelsWithMaxRating.addAll(unique.values());
-		
+
 		return hotelsWithMaxRating;
 	}
 
