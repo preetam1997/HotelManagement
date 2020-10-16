@@ -2,6 +2,9 @@ package com.bridgelabz.HotelManagement;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+import java.util.Map.Entry;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -75,6 +78,26 @@ public class HotelManagementUC9andUC10 {
 	public void givenAbilityToAddWeekendRatesOfHotelShouldPassHotelManangementTest() {
 		boolean result = hm.Hotels.get(0).getRewardRates() == 200 && hm.Hotels.get(0).getRewardWeekendRates() ==190;
 		assertTrue(result);
+	}
+	
+	@Test
+	public void givenAbilityToGetCheapestHotelsForRewardCustomersShouldPassHotelManangementTest() throws Exception {
+		
+			hm.addDate(DateClass.StringToDate("10Sep2018"));
+			hm.addDate(DateClass.StringToDate("9Sep2018"));
+			hm.addDate(DateClass.StringToDate("8Sep2018"));
+			hm.qualifiedHotelList(hm);
+			
+			hm.nameToRewardRateMapping(hm);
+			List<Entry<String, Double>> hotels = hm.CheapestHotelBasedOnWeekDaysandWeekendsforRewardCustomers(hm);
+			String output = "";
+			for (Entry hotel : hotels) {
+				output = output + hotel.getKey() + ", ";
+			}
+			output = output + "with cost of " + hotels.get(0).getValue();
+			
+			boolean result = "Mandarin Oriental, Radisson, with cost of 220.0".matches(output);
+			assertTrue(result);
 	}
 
 }

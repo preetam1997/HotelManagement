@@ -110,7 +110,9 @@ public class HotelManagementUC5UC6andUC7 {
 		}
 		output = output + "with rating of " + hotels.get(0).getRating();
 		
-		System.out.println(output);
+		boolean result = "Moody Moon, The Bay Club, with rating of 5.0".matches(output);
+		
+		assertTrue(result);
 	}
 
 }

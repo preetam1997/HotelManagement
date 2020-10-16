@@ -1,6 +1,7 @@
 package com.bridgelabz.HotelManagement;
 
 import java.util.Comparator;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
+
 
 public class HotelManagement {
 
@@ -171,7 +173,6 @@ public class HotelManagement {
 		double maxRating = Double.MIN_VALUE;
 
 		maxRating = qualifiedHotels.stream().max(Comparator.comparing(Hotel::getRating)).get().getRating();
-		System.out.println(maxRating);
 		double[] maxArr = { maxRating };
 		List<Hotel> hotelsWithMaxRating = qualifiedHotels.stream().filter(hotel -> hotel.getRating() == maxArr[0])
 				.collect(Collectors.toList());
@@ -184,6 +185,60 @@ public class HotelManagement {
 		hotelsWithMaxRating.addAll(unique.values());
 
 		return hotelsWithMaxRating;
+	}
+	
+	//name to reward rate mapping
+	public void nameToRewardRateMapping(HotelManagement hm) throws Exception{
+		
+		for (Hotel hotel : qualifiedHotels) {
+			if (nameToRateReward.get(hotel.getName()) != null) {
+
+				if (Days.get(DateClass.Day(hotel.getDate())) == "Weekend") {
+					double totalRates = nameToRateReward.get(hotel.getName()) + hotel.getRewardWeekendRates();
+					nameToRateReward.put(hotel.getName(), totalRates);
+				} else {
+					double totalRates = nameToRateReward.get(hotel.getName()) + hotel.getRewardRates();
+					nameToRateReward.put(hotel.getName(), totalRates);
+
+				}
+			} else {
+
+				if (Days.get(DateClass.Day(hotel.getDate())) == "Weekend") {
+					nameToRateReward.put(hotel.getName(), hotel.getRewardWeekendRates());
+				} else {
+					nameToRateReward.put(hotel.getName(), hotel.getRewardRates());
+
+				}
+
+			}
+		}
+		
+		
+
+		
+		
+		
+	}
+	
+	//cheapest Hotel for reward Customers
+	public List<Entry<String, Double>> CheapestHotelBasedOnWeekDaysandWeekendsforRewardCustomers(HotelManagement hm)
+			throws Exception {
+
+		List<Entry<String, Double>> minEntries = new LinkedList<Entry<String, Double>>();
+
+		double min = Double.MAX_VALUE;
+
+		min = nameToRateReward.entrySet().stream().min(Comparator.comparingDouble(Map.Entry::getValue)).get()
+				.getValue();
+		double[] minArr = { min };
+		final Double InnerMin = min;
+		
+		minEntries = nameToRateReward.entrySet().stream().filter(entry -> entry.getValue() == minArr[0])
+				.collect(Collectors.toList());
+
+		
+		return minEntries;
+
 	}
 
 }
