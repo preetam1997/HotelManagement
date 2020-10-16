@@ -11,8 +11,6 @@ import java.util.Set;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-
-
 public class HotelManagement {
 
 	public List<Hotel> Hotels;
@@ -67,7 +65,7 @@ public class HotelManagement {
 			}
 		}
 	}
-	
+
 	// method to get the cheapest Hotel based on weekdays
 	public String CheapestHotelUC2(HotelManagement hm) throws Exception {
 
@@ -118,7 +116,8 @@ public class HotelManagement {
 		return null;
 
 	}
-	//cheapest hotel for regular customers
+
+	// cheapest hotel for regular customers
 	public List<Entry<String, Double>> CheapestHotelUC4(HotelManagement hm) throws Exception {
 
 		List<Entry<String, Double>> minEntries = new LinkedList<Entry<String, Double>>();
@@ -135,8 +134,8 @@ public class HotelManagement {
 		return minEntries;
 
 	}
-	
-	//Cheapest and Highest Rated Hotel  for regular customers
+
+	// Cheapest and Highest Rated Hotel for regular customers
 	public List<Hotel> CheapestandHighestRatedHotelUC6(HotelManagement hm) throws Exception {
 		List<Entry<String, Double>> cheapestHotelEntries = CheapestHotelUC4(hm);
 
@@ -169,8 +168,8 @@ public class HotelManagement {
 		return cheapestHotelWithMaxRating;
 
 	}
-	
-	//hotel with max rating
+
+	// hotel with max rating
 	public List<Hotel> hotelWithMaxRatingUC7(HotelManagement hm) throws Exception {
 
 		double maxRating = Double.MIN_VALUE;
@@ -189,10 +188,10 @@ public class HotelManagement {
 
 		return hotelsWithMaxRating;
 	}
-	
-	//name to reward rate mapping
-	public void nameToRewardRateMapping(HotelManagement hm) throws Exception{
-		
+
+	// name to reward rate mapping
+	public void nameToRewardRateMapping(HotelManagement hm) throws Exception {
+
 		for (Hotel hotel : qualifiedHotels) {
 			if (nameToRateReward.get(hotel.getName()) != null) {
 
@@ -215,15 +214,10 @@ public class HotelManagement {
 
 			}
 		}
-		
-		
 
-		
-		
-		
 	}
-	
-	//cheapest Hotel for reward Customers
+
+	// cheapest Hotel for reward Customers
 	public List<Entry<String, Double>> CheapestHotelBasedOnWeekDaysandWeekendsforRewardCustomers(HotelManagement hm)
 			throws Exception {
 
@@ -235,18 +229,19 @@ public class HotelManagement {
 				.getValue();
 		double[] minArr = { min };
 		final Double InnerMin = min;
-		
+
 		minEntries = nameToRateReward.entrySet().stream().filter(entry -> entry.getValue() == minArr[0])
 				.collect(Collectors.toList());
 
-		
 		return minEntries;
 
 	}
-	
-	//cheapest Hotel with best rating for reward Customers
-	public List<Hotel> CheapestandHighestRatedHotelBasedOnWeekDaysandWeekendsForRewardCustomers(HotelManagement hm) throws Exception{
-		List<Entry<String, Double>> cheapestHotelEntries = CheapestHotelBasedOnWeekDaysandWeekendsforRewardCustomers(hm);
+
+	// cheapest Hotel with best rating for reward Customers
+	public List<Hotel> CheapestandHighestRatedHotelBasedOnWeekDaysandWeekendsForRewardCustomers(HotelManagement hm)
+			throws Exception {
+		List<Entry<String, Double>> cheapestHotelEntries = CheapestHotelBasedOnWeekDaysandWeekendsforRewardCustomers(
+				hm);
 
 		Set<Hotel> cheapestHotelWithBestRating = Hotels.stream().filter(
 				hotel -> cheapestHotelEntries.stream().anyMatch(entry -> entry.getKey().matches(hotel.getName())))
@@ -265,20 +260,15 @@ public class HotelManagement {
 				}
 			}
 		}
-		
+
 		Map<String, Hotel> unique = new HashMap<>();
 		for (Hotel hotel : cheapestHotelWithMaxRating) {
 			unique.put(hotel.getName(), hotel);
 		}
-
 		cheapestHotelWithMaxRating.clear();
 		cheapestHotelWithMaxRating.addAll(unique.values());
 
-		
 		return cheapestHotelWithMaxRating;
 
-		
-		
-		
 	}
 }
