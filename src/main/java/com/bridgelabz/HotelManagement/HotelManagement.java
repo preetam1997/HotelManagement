@@ -89,7 +89,7 @@ public class HotelManagement {
 		return output;
 	}
 
-	
+	// name to total rate mapping for regular customers for weekdays and weekend
 	public List<Hotel> NametoTotalRateMappingUC4(HotelManagement hm) throws Exception {
 
 		for (Hotel hotel : qualifiedHotels) {
@@ -118,7 +118,7 @@ public class HotelManagement {
 		return null;
 
 	}
-
+	//cheapest hotel for regular customers
 	public List<Entry<String, Double>> CheapestHotelUC4(HotelManagement hm) throws Exception {
 
 		List<Entry<String, Double>> minEntries = new LinkedList<Entry<String, Double>>();
@@ -135,7 +135,8 @@ public class HotelManagement {
 		return minEntries;
 
 	}
-
+	
+	//Cheapest and Highest Rated Hotel  for regular customers
 	public List<Hotel> CheapestandHighestRatedHotelUC6(HotelManagement hm) throws Exception {
 		List<Entry<String, Double>> cheapestHotelEntries = CheapestHotelUC4(hm);
 
@@ -168,7 +169,8 @@ public class HotelManagement {
 		return cheapestHotelWithMaxRating;
 
 	}
-
+	
+	//hotel with max rating
 	public List<Hotel> hotelWithMaxRatingUC7(HotelManagement hm) throws Exception {
 
 		double maxRating = Double.MIN_VALUE;
@@ -242,6 +244,7 @@ public class HotelManagement {
 
 	}
 	
+	//cheapest Hotel with best rating for reward Customers
 	public List<Hotel> CheapestandHighestRatedHotelBasedOnWeekDaysandWeekendsForRewardCustomers(HotelManagement hm) throws Exception{
 		List<Entry<String, Double>> cheapestHotelEntries = CheapestHotelBasedOnWeekDaysandWeekendsforRewardCustomers(hm);
 
