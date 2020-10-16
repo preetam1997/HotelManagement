@@ -31,10 +31,10 @@ public class HotelManagementUC9andUC10 {
 		Hotel hotel4_1 = new Hotel("Knights Inn", 250, 120, DateClass.StringToDate("9Sep2018"), 3.5, 200, 90);
 		Hotel hotel4_2 = new Hotel("Knights Inn", 250, 120, DateClass.StringToDate("10Sep2018"), 3.5, 200, 90);
 		Hotel hotel4_3 = new Hotel("Knights Inn", 250, 120, DateClass.StringToDate("11Sep2018"), 3.5, 200, 90);
-		Hotel hotel5 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("8Sep2018"), 4.9, 140, 40);
-		Hotel hotel5_1 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("9Sep2018"), 4.9, 140, 40);
-		Hotel hotel5_2 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("10Sep2018"), 4.9, 140, 40);
-		Hotel hotel5_3 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("11Sep2018"), 4.9, 140, 40);
+		Hotel hotel5 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("8Sep2018"), 4.7, 140, 40);
+		Hotel hotel5_1 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("9Sep2018"), 4.7, 140, 40);
+		Hotel hotel5_2 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("10Sep2018"), 4.7, 140, 40);
+		Hotel hotel5_3 = new Hotel("Radisson", 150, 50, DateClass.StringToDate("11Sep2018"), 4.7, 140, 40);
 		Hotel hotel6 = new Hotel("Classico", 240, 120, DateClass.StringToDate("8sep2018"), 4.7, 200, 100);
 		Hotel hotel6_1 = new Hotel("Classico", 240, 120, DateClass.StringToDate("9Sep2018"), 4.7, 200, 100);
 		Hotel hotel6_2 = new Hotel("Classico", 240, 120, DateClass.StringToDate("10Sep2018"), 4.7, 200, 100);
@@ -89,14 +89,14 @@ public class HotelManagementUC9andUC10 {
 			hm.qualifiedHotelList(hm);
 			
 			hm.nameToRewardRateMapping(hm);
-			List<Entry<String, Double>> hotels = hm.CheapestHotelBasedOnWeekDaysandWeekendsforRewardCustomers(hm);
+			List<Hotel> hotels = hm.CheapestandHighestRatedHotelBasedOnWeekDaysandWeekendsForRewardCustomers(hm);
 			String output = "";
-			for (Entry hotel : hotels) {
-				output = output + hotel.getKey() + ", ";
+			for (Hotel hotel : hotels) {
+				output = output + hotel.getName() + ", ";
 			}
-			output = output + "with cost of " + hotels.get(0).getValue();
-			
-			boolean result = "Mandarin Oriental, Radisson, with cost of 220.0".matches(output);
+			output = output + "with cost of " + hotels.get(0).getTotalRates()+" and rating of "+ hotels.get(0).getRating();
+			System.out.println(output);
+			boolean result = "Mandarin Oriental, with cost of 220.0 and rating of 4.9".matches(output);
 			assertTrue(result);
 	}
 

@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 
+
 public class HotelManagement {
 
 	public List<Hotel> Hotels;
@@ -240,5 +241,41 @@ public class HotelManagement {
 		return minEntries;
 
 	}
+	
+	public List<Hotel> CheapestandHighestRatedHotelBasedOnWeekDaysandWeekendsForRewardCustomers(HotelManagement hm) throws Exception{
+		List<Entry<String, Double>> cheapestHotelEntries = CheapestHotelBasedOnWeekDaysandWeekendsforRewardCustomers(hm);
 
+		Set<Hotel> cheapestHotelWithBestRating = Hotels.stream().filter(
+				hotel -> cheapestHotelEntries.stream().anyMatch(entry -> entry.getKey().matches(hotel.getName())))
+				.collect(Collectors.toSet());
+		double maxRating = Double.MIN_VALUE;
+
+		maxRating = cheapestHotelWithBestRating.stream().max(Comparator.comparing(Hotel::getRating)).get().getRating();
+		double[] maxArr = { maxRating };
+		List<Hotel> cheapestHotelWithMaxRating = cheapestHotelWithBestRating.stream()
+				.filter(hotel -> hotel.getRating() == maxArr[0]).collect(Collectors.toList());
+
+		for (int entry = 0; entry < cheapestHotelEntries.size(); entry++) {
+			for (int hotel = 0; hotel < cheapestHotelWithMaxRating.size(); hotel++) {
+				if (cheapestHotelEntries.get(entry).getKey().matches(cheapestHotelWithMaxRating.get(hotel).getName())) {
+					cheapestHotelWithMaxRating.get(hotel).setTotalRates(cheapestHotelEntries.get(entry).getValue());
+				}
+			}
+		}
+		
+		Map<String, Hotel> unique = new HashMap<>();
+		for (Hotel hotel : cheapestHotelWithMaxRating) {
+			unique.put(hotel.getName(), hotel);
+		}
+
+		cheapestHotelWithMaxRating.clear();
+		cheapestHotelWithMaxRating.addAll(unique.values());
+
+		
+		return cheapestHotelWithMaxRating;
+
+		
+		
+		
+	}
 }
